@@ -2,7 +2,6 @@ package it.polito.tdp.lab04;
 
 import java.net.URL;
 import java.util.*;
-
 import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Model;
 import it.polito.tdp.lab04.model.Studente;
@@ -101,6 +100,12 @@ public class FXMLController {
     		boolean a = false;
     		List<Studente> risultato = new ArrayList<Studente>();
     		risultato = this.model.getIscrittiCorso(codins);
+    		List<Studente> risultato2 = new ArrayList<Studente>();
+        	risultato2 = this.model.cercaStudenteMatricola(matricola);
+        	if (risultato2.size()==0) {
+        		this.txtResult.setText("Inserire una matricola valida");
+        		return;
+        	}
     		for (Studente s : risultato) {
     			if(s.getMatricola()==matricola) {
     				this.txtResult.setText("Studente già iscritto a questo corso");
@@ -145,6 +150,12 @@ public class FXMLController {
     		this.txtResult.setText("Selezionare codice di un corso");
     		return;
     	}
+    	List<Studente> risultato2 = new ArrayList<Studente>();
+    	risultato2 = this.model.cercaStudenteMatricola(matricola);
+    	if (risultato2.size()==0) {
+    		this.txtResult.setText("Inserire una matricola valida");
+    		return;
+    	}
     	boolean a = this.model.inscriviStudenteACorso(matricola, codins);
     	if (a==true) {
     		this.txtResult.setText("Studente iscritto al corso!");
@@ -172,7 +183,6 @@ public class FXMLController {
         assert txtMatricola != null : "fx:id=\"txtMatricola\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtNome != null : "fx:id=\"txtNome\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
-      
     }
 
     public void setModel(Model model) {
